@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HC Debt Model App</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="loadingScreen" class="loading-screen" aria-label="Loading app">
+  <div class="loading-card">
+    <img src="logo.png" alt="App logo" class="loading-logo">
+    <div class="loading-title">Debt Model App</div>
+    <div class="loading-subtitle">Preparing dashboard...</div>
+  </div>
+</div>
+<header class="app-header">
+  <div class="title-wrap">
+    <img src="logo.png" alt="App Logo" class="app-logo">
+    <div>
+      <p class="eyebrow">Debt-only model</p>
+      <h1 id="projectTitle">Debt Model</h1>
+      <p id="updatedDate" class="subtitle"></p>
+    </div>
+  </div>
+  <div class="actions">
+    <button id="shareBtn" type="button">Copy scenario link</button>
+    <button id="exportBtn" type="button">Export CSV</button>
+    <button id="exportExcelBtn" type="button">Export Excel</button>
+    <button id="exportTermSheetBtn" type="button">Export Term Sheet</button>
+    <button id="resetBtn" type="button" class="secondary">Reset</button>
+  </div>
+</header>
+<nav class="tabs" aria-label="App sections">
+  <button class="tab active" data-section="dashboard">Dashboard</button>
+  <button class="tab" data-section="inputs">Inputs</button>
+  <button class="tab" data-section="analysis">Analysis</button>
+  <button class="tab" data-section="debt">Debt schedule</button>
+</nav>
+<main>
+<section id="dashboard" class="view active">
+  <div id="dashboardControls" class="dashboard-controls">
+    <div class="scenario-tools">
+      <label for="scenarioSelect">Scenario</label>
+      <select id="scenarioSelect" aria-label="Saved scenarios"></select>
+      <button id="saveScenarioBtn" type="button">Save scenario</button>
+      <button id="loadScenarioBtn" type="button" class="secondary">Load</button>
+      <button id="deleteScenarioBtn" type="button" class="secondary">Delete</button>
+      <button id="undoBtn" type="button" class="secondary">Undo</button>
+      <button id="redoBtn" type="button" class="secondary">Redo</button>
+    </div>
+    <div class="export-tools">
+      <button id="exportSummaryBtn" type="button" class="secondary">Export Scenario Summary</button>
+    </div>
+  </div>
+  <div id="warningBanner" class="warning-banner" aria-live="polite"></div>
+  <div id="kpiCards" class="kpi-grid"></div>
+  <div class="grid-two">
+    <article class="panel">
+      <h2>Returns attribution</h2>
+      <div class="table-wrap"><table><thead><tr><th></th><th>IRR</th><th>MoM</th></tr></thead><tbody id="returnsBody"></tbody></table></div>
+    </article>
+    <article class="panel">
+      <h2>Visual summary</h2>
+      <div id="ebitdaChart" class="chart"></div>
+      <div id="cashChart" class="chart"></div>
+      <div id="westbrookeBalanceChart" class="chart"></div>
+    </article>
+  </div>
+  <article class="panel">
+    <h2>Dashboard</h2>
+    <div class="table-wrap"><table><thead id="dashboardHead"></thead><tbody id="dashboardBody"></tbody></table></div>
+  </article>
+</section>
+<section id="inputs" class="view">
+  <article class="panel intro-panel"><h2>Scenario inputs</h2><p>Adjust the key deal, timing, funding and fee assumptions for the current scenario. Percentages should be entered as whole percentages, so 12% is entered as 12.</p></article>
+  <div id="inputSections"></div>
+</section>
+<section id="analysis" class="view">
+  <article id="sensitivityPanel" class="panel">
+    <h2>Sensitivity Matrix</h2>
+    <p class="panel-note">WDO Gross IRR sensitivity to exit multiple. The matrix flexes the current exit multiple by -1.0x, -0.5x, base, +0.5x and +1.0x, then restores the current scenario.</p>
+    <div id="sensitivityMatrix" class="table-wrap"></div>
+  </article>
+</section>
+<section id="debt" class="view">
+  <article class="panel"><h2>Debt schedule details</h2><div id="debtTables" class="debt-tables"></div></article>
+</section>
+</main>
+<div id="toast" role="status"></div>
+<script src="jszip.min.js"></script>
+<script src="model.js"></script>
+<script src="app.js"></script>
+<!-- Service worker disabled for reliable GitHub Pages updates -->
+</body>
+</html>
